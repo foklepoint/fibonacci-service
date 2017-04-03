@@ -18,7 +18,7 @@ type fibonacciService struct {
 // Memoizes past calculated values in service cache
 func (service *fibonacciService) calculate(nth uint64) (ret uint64, err error) {
 	if !(nth >= 1) {
-		err = fmt.Errorf("nth (%s) >= 1", nth)
+		err = fmt.Errorf("nth (%d) >= 1", nth)
 		return
 	}
 	if service.cache == nil {
@@ -35,4 +35,16 @@ func (service *fibonacciService) calculate(nth uint64) (ret uint64, err error) {
 	}
 	service.cache[nth] = ret
 	return
+}
+
+
+// Holds params for Fibonacci.calculate as JSON
+type CalculateRequest struct {
+	nth uint64 `json:"nth"`
+}
+
+// Holds the return of Fibonacci.calculate for a JSON response
+type CalculateResponse struct {
+	val uint64 `json:"val"`
+	err string `json:"error"`
 }
