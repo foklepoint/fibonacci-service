@@ -5,7 +5,7 @@ import (
 )
 
 func assertCalculateReturn(t *testing.T, arg uint64, expected_val uint64, expected_err error) {
-	var fib FibonacciService
+	var fib fibonacciService
 	actual_val, actual_err := fib.calculate(arg)
 	if actual_err != expected_err || actual_val != expected_val {
 		t.Errorf("Expected (%v, %v), got (%v, %v)", expected_val, expected_err, actual_val, actual_err)
@@ -13,7 +13,7 @@ func assertCalculateReturn(t *testing.T, arg uint64, expected_val uint64, expect
 }
 
 func TestCalculateFailsOnLessThanOne(t *testing.T) {
-	var fib FibonacciService
+	var fib fibonacciService
 	_, err := fib.calculate(0)
 	if err == nil {
 		t.Error("Expected an error to be returned")
@@ -28,7 +28,7 @@ func TestCaclulateBasicValueTest(t *testing.T) {
 }
 
 func TestCache(t *testing.T) {
-	var fib FibonacciService
+	var fib fibonacciService
 	fib.calculate(10)
 	expectedCache := map[uint64]uint64{
 		1:  1,
@@ -55,7 +55,7 @@ func TestCache(t *testing.T) {
 }
 
 func benchmarkCalculate(nth uint64, b *testing.B) {
-	var fib FibonacciService
+	var fib fibonacciService
 	for i := 0; i < b.N; i++ {
 		fib.calculate(nth)
 	}
@@ -69,7 +69,7 @@ func BenchmarkFib20(b *testing.B) { benchmarkCalculate(1000, b) }
 func BenchmarkFib40(b *testing.B) { benchmarkCalculate(2000, b) }
 
 func BenchmarkCalculateWarmCache(b *testing.B) {
-	var fib FibonacciService
+	var fib fibonacciService
 	// Warm up our cache
 	fib.calculate(100)
 	b.ResetTimer()

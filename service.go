@@ -4,19 +4,19 @@ package fibonacci_service
 import "fmt"
 
 // Fibonacci service interface
-type IFibonacciService interface {
+type FibonacciService interface {
 	calculate(num uint64) (uint64, error)
 }
 
 // Fibonacci service implements the interface
 // Keeps a cache of calculated values
-type FibonacciService struct {
+type fibonacciService struct {
 	cache map[uint64]uint64
 }
 
 // Calculates nth fibonacci number, nth >= 1
 // Memoizes past calculated values in service cache
-func (service *FibonacciService) calculate(nth uint64) (ret uint64, err error) {
+func (service *fibonacciService) calculate(nth uint64) (ret uint64, err error) {
 	if !(nth >= 1) {
 		err = fmt.Errorf("nth (%s) >= 1", nth)
 		return
