@@ -1,15 +1,14 @@
 package main
 
 import (
-	"net/http"
-	"log"
 	"./service"
+	"log"
+	"net/http"
 
 	httptransport "github.com/go-kit/kit/transport/http"
 )
 
-
-func main()  {
+func main() {
 	svc := service.FibonacciService{}
 	http.Handle(
 		"/calculate",

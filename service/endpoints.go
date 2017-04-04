@@ -2,11 +2,10 @@ package service
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/go-kit/kit/endpoint"
 	"net/http"
-	"encoding/json"
 )
-
 
 func MakeCalculateEndpoint(service FibonacciService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
@@ -19,7 +18,6 @@ func MakeCalculateEndpoint(service FibonacciService) endpoint.Endpoint {
 		return CalculateResponse{val, errStr}, nil
 	}
 }
-
 
 // Holds params for Fibonacci.calculate as JSON
 type CalculateRequest struct {
