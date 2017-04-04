@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./service"
+	"github.com/foklepoint/fibonacci-service/service"
 	"log"
 	"net/http"
 
