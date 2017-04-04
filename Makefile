@@ -9,5 +9,6 @@ bin/main: build-image
 						/bin/bash -c 'CGO_ENABLED=0 GOOS=linux go build -v -a -installsuffix cgo -o bin/main .'
 build-docker-static-binary-image: bin/main
 	@docker build --file Dockerfile.static --tag fibonacci-service:latest .
+
 clean:
-	@docker volume rm `docker volume ls -q`
+	@rm bin/*
