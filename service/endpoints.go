@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func MakeCalculateEndpoint(service FibonacciService) endpoint.Endpoint {
+func MakeCalculateEndpoint(service IFibonacciService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(CalculateRequest)
 		val, err := service.calculate(req.N)
