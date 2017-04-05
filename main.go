@@ -4,15 +4,19 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"net"
 
-	"github.com/foklepoint/fibonacci-service/service"
 	ktlog "github.com/go-kit/kit/log"
 	httptransport "github.com/go-kit/kit/transport/http"
+	"github.com/foklepoint/fibonacci-service/service"
 )
 
 func main() {
 	logger := getLogger()
-	svc := service.LoggingMiddleware{&service.FibonacciService{}, logger}
+	svc := service.LoggingMiddleware{
+		&service.FibonacciService{},
+		ktlog.With(logger, "type", "endpoint"),
+	}
 	endpoint := service.MakeCalculateEndpoint(svc)
 	service.MakeCalculateEndpoint(svc)
 	var server http.Handler = *httptransport.NewServer(
@@ -24,7 +28,12 @@ func main() {
 		"/calculate",
 		server,
 	)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	listener, err := net.Listen("tcp", ":8080")
+	if err == nil {
+		logger.Log("status", "ready")
+	}
+	log.Fatal(http.Serve(listener, nil))
+
 }
 
 func getLogger() ktlog.Logger {
