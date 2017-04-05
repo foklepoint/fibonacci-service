@@ -39,5 +39,10 @@ func DecodeCalculateRequest(_ context.Context, r *http.Request) (interface{}, er
 }
 
 func EncodeResponse(_ context.Context, w http.ResponseWriter, response interface{}) error {
-	return json.NewEncoder(w).Encode(response)
+	resp := response.(CalculateResponse)
+	if resp.Err != "" {
+		w.WriteHeader(http.StatusBadRequest)
+	}
+	err := json.NewEncoder(w).Encode(resp)
+	return err
 }
