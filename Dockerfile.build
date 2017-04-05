@@ -2,8 +2,7 @@ FROM golang
 
 ENV APP_DIR /app
 WORKDIR $APP_DIR
-COPY main.go .
+ADD . $APP_DIR
 RUN go-wrapper download
 RUN mkdir -p bin/
-ADD . $APP_DIR
 CMD $APP_DIR/main
