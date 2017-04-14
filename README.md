@@ -16,5 +16,6 @@ $ curl -X POST localhost:8080/calculate -d '{ "nth": 12 }'
  #### Building a minimal docker binary
  ```bash
  $ make
- $ docker run fibonacci-service
+ $ docker run -p 8080:8080 fibonacci-service
+ $ curl -X POST localhost:8080/calculate -d '{ "nth": 12345 }'
  ```
