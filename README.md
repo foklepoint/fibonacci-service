@@ -10,10 +10,7 @@ $ curl -X POST localhost:8080/calculate -d '{ "nth": 12 }'
 # Kill the service using kill -9 %
 ```
 
-
-###
- 
- #### Building a minimal docker binary
+ #### Building a minimal docker binary and running it
  ```bash
  $ make
  $ docker run -p 8080:8080 fibonacci-service
